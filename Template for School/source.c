@@ -1,7 +1,7 @@
 //**************************************************************
 //...Written by..: Chance Gurley
-//...Date Written: Aug 29, 2019
-//...Purpose.....: Programming class
+//...Date Written: Aug 30, 2019
+//...Purpose.....: Print Name 14 times
 //**************************************************************
 #define _CRT_SERCURE_NO_WARNINGS // Allows use of scanf instead of scanf_s
 #include <stdio.h>
@@ -10,6 +10,8 @@
 #define CLS system("cls")
 
 main() {
-	//code here
+	for (int i = 0; i < 14; i++) {
+		printf("My name is Chance Gurley \n");
+	}
 	PAUSE;
 } // end of main
