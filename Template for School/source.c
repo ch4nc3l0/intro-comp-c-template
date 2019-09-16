@@ -12,40 +12,51 @@
 
 main() {
 	// Set Variables
-	int ticket = 0;
-	int lotteryPool[365];
-	int money = 0;
-	char didWin = "f";
-	int timesWon = 0;
-
-	// State app purpose
-	printf("This app will generate a random lottery your goal is to win within one year of tickets\n");
-	// Print input statement
-	printf("Input your lottery ticket number in 000 format\n");
-	scanf(" %i", &ticket);
-	// Generate random lottery
+	int randomAnswer;
+	int userGuess; 
+	// I want to challenge myself to not make a number of guesses variable
+	// Generate random answer
 	srand(time(0)); // Generate random numbers every time program is run
-	for (int i = 0; i < 365; i++) {
-		// Subtract money
-		money = money--;
-		// Generate random numbers and assign them to array
-		lotteryPool[i] = rand() % 1000;
-		// Check if user 'won'
-		if (ticket == lotteryPool[i]) {
-			money += 500;
-			didWin = 't';
-			timesWon = timesWon++;
+	randomAnswer = (rand() % (100 - 1 + 1)) + 1;
+	// State app purpose
+	printf("Guessing game can you guess a random number 1-100 with only 10 guesses?\n");
+	// Prompt user to input for first attempt
+	printf("Please make your first guess!/n");
+	// Collect user input for first attempt
+	scanf(" %i", &userGuess);
+	// Start loop
+	for (int i = 0; i < 11; i++) {
+		// Check if user already made 10 guesses
+		if (i == 11) {
+			printf("Unfortunalty you lost, the number was %i\n", randomAnswer);
 		}
+		// Check if user guessed lower
+		else if (userGuess < randomAnswer) {
+			// Print you guessed lower
+			printf("You guessed lower!\n");
+			// Get user input
+			scanf(" %i", &userGuess);
+		}
+		// Check if user guessed higher
+		else if (userGuess > randomAnswer) {
+			// Print you guessed higher
+			printf("You guessed higher!\n");
+			// Get user input
+			scanf(" %i", &userGuess);
+		}
+		// Check if user guessed correct answer
+		else if (userGuess == randomAnswer) {
+			// Print you won
+			printf("Congrats! You won :)\n");
+			// Set i check to 12 to end loop
+			i = 12;
+		}
+
 	}
-	// Print Winner or Loser
-	if (didWin == 't') {
-		printf("Winner! You won %i times\n", timesWon);
-	}
-	else {
-		printf("Loser! You won %i times please try again!\n", timesWon);
-	}
-	// Print money
-	printf("Money = $%i.00\n", money);
+
+
+		
+
 	
 
 	PAUSE;
