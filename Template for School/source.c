@@ -7,65 +7,69 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <ctype.h>
 #define PAUSE system("pause")
 #define CLS system("cls")
 
 main() {
 	// Set Variables
-	int randomNumbers[10];
+	int inputIsNumber = 0;
 	int userInput;
-	int changeLeftover;
 	int half;
 	int quarter;
 	int dime;
 	int nickle;
 	int penney;
 	// Print app purpose and instructions
-	printf("This app will generate 10 random numbers between 1-99 and give change in the lowest amount of change\n");
-	printf("Press enter key to begin\n");
-	printf("---------------------------");
-	getchar();
-	// Generate random numbers
-	srand(time(0)); // Generate random numbers every time program is run
-	// Loop 10 times
-	for (int i = 0; i < 10; i++) {
-		randomNumbers[i] = (rand() % (99 - 1 + 1)) + 1;
-		printf("Get change for %i cents:\n", randomNumbers[i]);
-		
-
-		while (randomNumbers[i] > 0) {
-
-			if (randomNumbers[i] >= 50) {
-				half = randomNumbers[i] / 50;
-				randomNumbers[i] =  randomNumbers[i] - half * 50;
-				printf("Halfs %i, ", half);
-			}
-			if (randomNumbers[i] >= 25) {
-				quarter = randomNumbers[i] / 25;
-				randomNumbers[i] =  randomNumbers[i] - quarter * 25;
-				printf("Quarters %i, ", quarter);
-			}
-			if (randomNumbers[i] >= 10) {
-				dime = randomNumbers[i] / 10;
-				randomNumbers[i] = randomNumbers[i] - dime * 10;
-				printf("Dimes %i, ", dime);
-			}
-			if (randomNumbers[i] >= 5) {
-				nickle = randomNumbers[i] / 5;
-				randomNumbers[i] = randomNumbers[i] - nickle * 5;
-				printf("Nickles %i, ", nickle);
-			}
-			if (randomNumbers[i] >= 1) {
-				penney = randomNumbers[i] / 1;
-				randomNumbers[i] = randomNumbers[i] - penney;
-				printf("Penneys %i", penney);
-			}
+	printf("This app will generate lowest amount of change for a number in between 1-99\n");
+	printf("Please enter change amount 1-99\n");
+	printf("---------------------------\n");
+	// Grab user input
+	while (inputIsNumber == 0) {
+		scanf(" %i", &userInput);
+		getchar();
+		if (userInput > 99 || userInput < 1) {
+			printf("Please enter a number between 1-99\n");
 		}
-		if (randomNumbers[i] == 0) {
-			printf("\n---------------------------\n");
+		else {
+			inputIsNumber = 1;
 		}
 		
 	}
+
+	do {
+		if (userInput >= 50) {
+			half = userInput / 50;
+			userInput = userInput - half * 50;
+			printf("Halfs %i, ", half);
+		}
+		if (userInput >= 25) {
+			quarter = userInput / 25;
+			userInput = userInput - quarter * 25;
+			printf("Quarters %i, ", quarter);
+		}
+		if (userInput >= 10) {
+			dime = userInput / 10;
+			userInput = userInput - dime * 10;
+			printf("Dimes %i, ", dime);
+		}
+		if (userInput >= 5) {
+			nickle = userInput / 5;
+			userInput = userInput - nickle * 5;
+			printf("Nickles %i, ", nickle);
+		}
+		if (userInput >= 1) {
+			penney = userInput / 1;
+			userInput = userInput - penney;
+			printf("Penneys %i", penney);
+		}
+	} while (userInput > 0);
+	printf("\n");
+
+
+		
+		
+	
 	
 
 	PAUSE;
