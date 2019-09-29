@@ -13,6 +13,17 @@
 
 main() {
 	// Set Variables
+	int userInput;
+
+
+	// Print progam instructions
+	printf("This app will output the shape of a triangle or diamond made of asterisks with the amount of rows equal to the input");
+
+
+	// Get user input
+
+	// Ask user how they want the print | triangle | Upside down | Backwards | Backwards & Upside-down | Diamond
+
 
 	
 
