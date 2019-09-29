@@ -15,6 +15,8 @@
 main() {
 	// Set Variables
 	int userInput;
+	int counter;
+	char asterisks[300] = "*";
 	char userString[50];
 
 	// Print progam instructions
@@ -51,7 +53,27 @@ main() {
 		scanf("%s", &userString);
 	}
 
-	// 
+	// Loop to create triangle
+	// Check if input is triangle
+	if (!strcmp("triangle", userString)) {
+		printf("Printing a triangle with %i rows\n", userInput);
+
+		// Loop equal to the num user entered
+		for (counter = userInput; counter > 0; counter--) {
+			
+			// Print asterisks
+			printf("%s\n", asterisks);
+			
+			// Add one asterisk everytime loop is ran
+			strcat(asterisks, "*");
+
+			// Add a somewhat funny joke
+			if (userInput == 1) {
+				printf("Not much of a %s huh?\n", userString);
+			}
+			
+		}
+	}
 
 	
 
