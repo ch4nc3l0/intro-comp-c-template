@@ -1,6 +1,6 @@
 //**************************************************************
 //...Written by..: Chance Gurley
-//...Date Written: SEPT 27, 2019
+//...Date Written: OCT 3, 2019
 //...Purpose.....: Programming class
 //**************************************************************
 #define _CRT_SECURE_NO_WARNINGS // Allows use of scanf instead of scanf_s
@@ -144,22 +144,44 @@ main() {
 		}
 	}
 
-	if (!strcmp("upsideDown", userString)) {
+	// Check if input is backwards
+	if (!strcmp("backwards", userString)) {
 
-		// Loop equal to the num user entered
+		// Start loop for first half of diamond
 		for (counter = userInput; counter > 0; counter--) {
 
-			// Print *
-			for (print = 0; print < counter; print++)
+			// Keep track of how many iterations (I wanted to keep counter equal to userinput for spaces)
+			i++;
+
+			// Loop to insert spaces
+			for (spaces = 0; spaces < counter - 1; spaces++)
+				printf(" ");
+
+			// Loop to print *
+			for (print = i; print > 0; print--)
 				printf("*");
 
-			// print newline
+			// Print newline after each iteration
 			printf("\n");
+		}
+	}
 
-			// Add a somewhat funny joke
-			if (userInput == 1) {
-				printf("Not much of a %s huh?\n", userString);
-			}
+	// Check if input is backwardsUpsideDown
+	if (!strcmp("backwardsUpsideDown", userString)) {
+
+		// Start loop for first half of diamond
+		for (counter = userInput; counter > 0; counter--) {
+
+			// Loop to insert spaces
+			for (spaces = userInput; spaces > counter; spaces--)
+				printf(" ");
+				
+			// Loop to print *
+			for (print = counter; print > 0; print--)
+				printf("*");
+
+			// Print newline after each iteration
+			printf("\n");
 		}
 	}
 
