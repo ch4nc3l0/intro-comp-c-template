@@ -20,6 +20,7 @@ main() {
 	int sumResult;
 	int largest = -50;
 	int lowest = 100;
+	int average;
 
 	// Print progam instructions
 	printf("This app will output facts about the numbers that are input to the program\n");
@@ -59,9 +60,35 @@ main() {
 		}
 		printf("The lowest of the numbers is %i\n", lowest);
 
+		// Print the average of the numbers
+		average = sumResult / counter;
+		printf("The average of the numbers is %i\n", average);
+
 		// Print how many numbers were input
 		printf("You have entered %i numbers\n", counter);
+
+		// Print if number is even or odd
+		if (userInput % 2 == 0) {
+			printf("The number %i is an even number\n", userInput);
+		}
+		else {
+			printf("The number %i is an odd number\n", userInput);
+		}
 		
+		// Print if prime number
+		int isPrime = 1;
+		for (int c = 2; c < userInput; c++) {
+			if ((userInput % c) == 0){
+				isPrime = 0;
+			}
+		}
+		if (isPrime == 1) {
+			printf("The number %i is a prime number\n", userInput);
+		}
+		else {
+			printf("The number %i is not a prime number\n", userInput);
+		}
+
 		// Counter + 1 to keep track of array size
 		counter++;
 		// End of operations
