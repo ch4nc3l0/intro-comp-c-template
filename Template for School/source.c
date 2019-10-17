@@ -26,7 +26,7 @@ main() {
 	printf("This app will output facts about the numbers that are input to the program\n");
 
 	// Get user input for the first time
-	printf("Input a number from -50 to 100\n");
+	printf("Input a number from -50 to 100 or enter -999 to quit the application\n");
 	scanf(" %i", &userInput);
 
 	// While program is not at end condition run code
@@ -78,9 +78,12 @@ main() {
 		// Print if prime number
 		int isPrime = 1;
 		for (int c = 2; c < userInput; c++) {
-			if ((userInput % c) == 0){
+			if ((userInput % c) == 0) {
 				isPrime = 0;
 			}
+		}
+		if (userInput < 0) {
+			isPrime = 0;
 		}
 		if (isPrime == 1) {
 			printf("The number %i is a prime number\n", userInput);
@@ -96,7 +99,7 @@ main() {
 		CLS;
 
 		// Get input again to start cycle over
-		printf("Input a number from -50 to 100\n");
+		printf("Input a number from -50 to 100 or enter -999 to quit the application\n");
 		scanf(" %i", &userInput);
 	}
 
