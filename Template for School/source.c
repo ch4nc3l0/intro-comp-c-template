@@ -85,8 +85,8 @@ main() {
 		
 		// Print if prime number
 		int isPrime = 1;
-		for (int c = 2; c < userInput; c++) {
-			if ((userInput % c) == 0) {
+		for (int i = 2; i < userInput; i++) {
+			if ((userInput % i) == 0) {
 				isPrime = 0;
 			}
 		}
