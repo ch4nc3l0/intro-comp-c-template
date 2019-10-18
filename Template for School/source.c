@@ -21,6 +21,7 @@ main() {
 	int largest = -50;
 	int lowest = 100;
 	int average;
+	int productResult;
 
 	// Print progam instructions
 	printf("This app will output facts about the numbers that are input to the program\n");
@@ -43,10 +44,17 @@ main() {
 
 		// Print sum of numbers
 		sumResult = 0; // Reset result each time a new input is recieved
-		for (int i = counter; i>0;  i--){
+		for (int i = counter; i>0;  i--) {
 			sumResult += arr[i];
 		}
 		printf("The sum of the numbers is %i\n", sumResult);
+
+		// Print Product of numbers
+		productResult = 1;
+		for (int i = counter; i > 0; i--) {
+			productResult *= arr[i];
+		}
+		printf("The product of the numbers is %i\n", productResult);
 
 		// Print the largest number
 		if (largest < userInput) {
@@ -82,6 +90,7 @@ main() {
 				isPrime = 0;
 			}
 		}
+		// Check if negitive => not a prime number 
 		if (userInput < 0) {
 			isPrime = 0;
 		}
