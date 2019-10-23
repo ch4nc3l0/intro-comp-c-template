@@ -15,6 +15,11 @@
 /***********************************
 		Function Prototypes
 ***********************************/
+void printMenu();
+int raisePower();
+int squareRoot();
+
+
 
 /***********************************
 		Global Variables
@@ -25,7 +30,8 @@
 		Main Function
 ***********************************/
 main() {
-	// 
+	// Variable Declaration
+
 
 	
 
@@ -35,3 +41,10 @@ main() {
 /***********************************
 		Function Definitions
 ***********************************/
+void printMenu() {
+	printf("***** Main Menu *****");
+	printf("[R]aise a number to a power");
+	printf("[S]quare root of a number");
+	printf("[T]riangle printout");
+	printf("[Q]uit the program");
+}
