@@ -31,8 +31,39 @@ int squareRoot();
 ***********************************/
 main() {
 	// Variable Declaration
+	char userInput;
 
+	// Print instructions for user
+	printMenu();
+	// Get user input
+	scanf(" %c", &userInput);
 
+	// Create loop
+	while (userInput != 'Q') {
+
+		// Create switch menu
+		switch (userInput)
+		{
+		case 'R': 
+			printf("R input");
+			break;
+		case 'S': 
+			printf("S input");
+			break;
+		case 'T': 
+			printf("T Input");
+			break;
+		default: 
+			CLS;
+			printf("Input is not valid, Please enter valid input\n");
+			printMenu();
+			break;
+		}
+
+		// Get New User Input
+		scanf(" %c", &userInput);
+		
+	}
 	
 
 	PAUSE;
@@ -42,9 +73,9 @@ main() {
 		Function Definitions
 ***********************************/
 void printMenu() {
-	printf("***** Main Menu *****");
-	printf("[R]aise a number to a power");
-	printf("[S]quare root of a number");
-	printf("[T]riangle printout");
-	printf("[Q]uit the program");
+	printf("***** Main Menu *****\n");
+	printf("[R]aise a number to a power\n");
+	printf("[S]quare root of a number\n");
+	printf("[T]riangle printout\n");
+	printf("[Q]uit the program\n");
 }
