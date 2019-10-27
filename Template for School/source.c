@@ -9,6 +9,7 @@
 #include <time.h>
 #include <ctype.h>
 #include <string.h>
+#include <math.h>
 #define PAUSE system("pause")
 #define CLS system("cls")
 
@@ -16,8 +17,8 @@
 		Function Prototypes
 ***********************************/
 void printMenu();
-int raisePower();
-int squareRoot(int);
+void raisePower();
+void squareRoot();
 
 
 
@@ -84,7 +85,7 @@ void printMenu() {
 }
 
 // raisePower function
-int raisePower() {
+void raisePower() {
 	// Declare var
 	int num;
 	int power;
@@ -144,4 +145,34 @@ int raisePower() {
 
 	// Pause for user
 	PAUSE;
+}
+
+// Square root function
+void squareRoot() {
+	// Declare var
+	int usInput;
+
+
+	// Clear Screen
+	CLS;
+
+	// Display instructions
+	printf("***** Find out the square root of a number *****");
+	printf("");
+
+	// Get user input
+
+	// Check if input is valid
+
+	// Loop user until valid input is recived
+
+	// Perform sq rt
+	sqrt();
+
+	// Print answer
+
+	// Pause for user
+	PAUSE;
+
+
 }
