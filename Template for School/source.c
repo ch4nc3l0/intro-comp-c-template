@@ -19,6 +19,7 @@
 void printMenu();
 void raisePower();
 void squareRoot();
+void triangle();
 
 
 
@@ -39,24 +40,28 @@ main() {
 	// Get user input
 	scanf(" %c", &userInput);
 
+	// Set user input to capital letter to improve matching
+	userInput = toupper(userInput);
+
 	// Create menu loop
 	while (userInput != 'Q') {
 
 		// Create switch menu
 		switch (userInput)
 		{
-		case 'R': 
+		case 'R':
 			raisePower();
-			CLS;
 			printMenu();
 			break;
-		case 'S': 
-			printf("S input");
+		case 'S':
+			squareRoot();
+			printMenu();
 			break;
-		case 'T': 
-			printf("T Input");
+		case 'T':
+			triangle();
+			printMenu();
 			break;
-		default: 
+		default:
 			CLS;
 			printf("Input is not valid, Please enter valid input\n");
 			printMenu();
@@ -65,9 +70,10 @@ main() {
 
 		// Get New User Input
 		scanf(" %c", &userInput);
-		
+		// Set user input to capital letter to improve matching
+		userInput = toupper(userInput);
 	}
-	
+
 
 	PAUSE;
 } // end of main
@@ -77,6 +83,7 @@ main() {
 ***********************************/
 // Print menu function
 void printMenu() {
+	CLS;
 	printf("***** Main Menu *****\n");
 	printf("[R]aise a number to a power\n");
 	printf("[S]quare root of a number\n");
@@ -105,7 +112,7 @@ void raisePower() {
 	scanf(" %i", &power);
 
 	// Add simple input validation
-	if ((num < 1 || num > 20) || (power < 1 || power > 10)) {
+	if ((num < 1 || num > 20) || (power < 1 || power > 10)) { // if validator
 		validator = 0;
 	}
 	else {
@@ -151,28 +158,79 @@ void raisePower() {
 void squareRoot() {
 	// Declare var
 	int usInput;
-
+	int result;
 
 	// Clear Screen
 	CLS;
 
 	// Display instructions
-	printf("***** Find out the square root of a number *****");
-	printf("");
+	printf("***** Find out the square root of a number *****\n");
+	printf("Input a number from 1-1000\n");
 
 	// Get user input
+	scanf("%i", &usInput);
 
 	// Check if input is valid
-
-	// Loop user until valid input is recived
+	while (usInput < 1 || usInput > 1000) { // while validator
+		CLS;
+		printf("***** Incorrect input, please input a number from 1-1000 to continue *****\n");
+		scanf("%i", &usInput);
+	}
 
 	// Perform sq rt
-	sqrt();
+	result = sqrt(usInput);
 
 	// Print answer
+	printf("The square root of %i is %i\n", usInput, result);
 
 	// Pause for user
 	PAUSE;
+}
+
+// Triangle function
+void triangle() {
+	// Declare var
+	char userChar;
+	int userRow;
+	int printer;
+
+	// Clear menu
+	CLS;
+
+	// Print Instructions 
+	printf("***** Print a Triangle *****\n");
+	printf("Enter the character you would like to use\n");
+
+	// Get user input
+	scanf(" %c", &userChar);
+	printf("Enter the number of rows 3-50\n");
+	scanf(" %i", &userRow);
+
+	// Verify user input
+	while (userRow < 3 || userRow > 50) {
+		// Clear screen
+		CLS;
+
+		// Print error
+		printf("***** Incorrect number of rows please enter a number 3-50 *****\n");
+
+		// Get new input
+		scanf("%i", &userRow);
+	}
 
 
+	// Print triangle according to user input
+	for (int i = 0; i <= userRow; i++) {
+		// Print correct num of characters
+		printer = i;
+		while (printer > 0) {
+			printf("%c", userChar);
+			printer--;
+		}
+		// Print a new line
+		printf("\n");
+	}
+
+	// Pause for user
+	PAUSE;
 }
