@@ -35,22 +35,24 @@ void findWinner(int a, int b, int c); // Find what car came in 1st | 2nd | 3rd
 				Main
 ***********************************/
 main() {
+	// Declare var
 	char restartRace = 'Y'; // Track if user entered "N"
 
 	srand(time(0)); // Generate random seed of number
 
-	
-	
-
 	while (restartRace == 'Y'){ 
-		printMenu();
-		CLS;
-		printFinishLine();
-		carMover(randomGen());
-		printf("\n\n");
+		printMenu(); // Print intro to application
+		CLS; // Clear menu
+		printFinishLine(); // Print racetrack
+		carMover(randomGen()); // Start race
+
+		// Ask user if they want to restart race
+		printf("\n\n"); 
 		printf("\t\t Would you like to restart the race? (Y/N)");
 		scanf(" %c", &restartRace);
-		restartRace = toupper(restartRace);
+		restartRace = toupper(restartRace); // Make n => N and y => Y
+
+		// Validate input is either n or y
 		while (restartRace != 'N' && restartRace != 'Y') {
 			CLS;
 			printf("Please enter Y to restart the race or N to close the program\n");
@@ -58,7 +60,7 @@ main() {
 			restartRace = toupper(restartRace);
 		}
 		CLS;
-	}
+	} // Loop the race if the user does not type N
 
 	// Print closing message
 	printf("\n\n");
@@ -66,16 +68,6 @@ main() {
 	printf("\t\t**Thank you for visiting**\n");
 	printf("\t\t**   Chance's Speedway  **\n");
 	printf("\t\t**************************\n");
-	
-
-
-
-
-	
-	
-
-
-
 
 	PAUSE;
 } // end of main
@@ -178,6 +170,7 @@ void carMover(int spaceNum) {
 		spaceNum = randomGen(); // Get a new random number
 		delay(1); // Create a small delay for user to see race clearly
 
+		// Clear and draw new racecars with updated numbers to give illusion of movement
 		CLS;
 		printFinishLine();
 		printf("\n\n");
@@ -191,6 +184,7 @@ void carMover(int spaceNum) {
 		carC(c);
 		printf("\n");
 		printf("-------------------------------------------------------------------------------|\n");
+
 	} // Loop while no number is 80
 
 	findWinner(a, b, c); // Find and print out the winners
