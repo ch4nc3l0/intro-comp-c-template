@@ -24,6 +24,7 @@ void printFinishLine(); // Print the finish line flag
 void delay(int time); // Generate a delay in time
 int randomGen(); // Generate rand numbers
 void carMover(int spaceNum); // Move cars based on rand generator
+void findWinner(int a, int b, int c); // Find what car came in 1st | 2nd | 3rd
 
 /***********************************
 		Global Variables
@@ -35,21 +36,16 @@ void carMover(int spaceNum); // Move cars based on rand generator
 ***********************************/
 main() {
 	srand(time(0)); // Generate random seed of number
-// Set variables
-/*	int a = 1;
-	int b = 1;
-	int c = 1;*/
+
+	//
 	printMenu();
 
 
 	CLS;
 	printFinishLine();
-	carA(1);
-
-	CLS;
-	printFinishLine();
 	carMover(randomGen());
-		
+
+
 
 	
 	
@@ -72,52 +68,53 @@ void printMenu() {
 	printf("\t\t***********************************\n");
 	printf("\t\t  ");
 	PAUSE;
-	
-
-}
+} // Print main menu
 
 int randomGen() {
-	int num = rand() % 10; // Generate random number 0-9
+	int num = rand() % 9; // Generate random number 0-8
 	return num;
 } // Random number function
 
 void carA(int a) {
-	int i = a;
-	while (i > 0) {
+	while (a > 0) {
 		printf("A");
-		i--;
+		a--;
 	}
-	
-	
-}
+} // Print car a (a) amount of times
+
 void carB(int b) {
-	printf("B");
-	
-}
+	while (b > 0) {
+		printf("B");
+		b--;
+	}
+} // Print car b (b) amount of times
+
 void carC(int c) {
-	printf("C");
-	
-}
+	while (c > 0) {
+		printf("C");
+		c--;
+	}
+} // Print car c (c) amount of times
 
 void printFinishLine() {
-	printf("                                                                                ");
+	printf("                                                                               ");
 	printf(" ______\n");
-	printf("                                                                                ");
+	printf("                                                                               ");
 	printf("|Finish|\n");
-	printf("                                                                                ");
+	printf("                                                                               ");
 	printf("|/Line\\|\n");
-	printf("                                                                                ");
+	printf("                                                                               ");
 	printf("|\n");
-	printf("                                                                                ");
+	printf("                                                                               ");
 	printf("|\n");
-	printf("                                                                                ");
+	printf("                                                                               ");
 	printf("|\n");
 } // Generate finish line flag 80 spaces away
 
 void delay(int time) {
-	int milSec = 250 * time; // Convert to 1/4 of a millisecond
+	int deltime = 100 * time;
 	clock_t startTime = clock(); // Store the start time
-	while (clock() < startTime + milSec) {
+	while (clock() < startTime + deltime) {
 		;
 	} // Loop until delay is reached
 
@@ -127,42 +124,86 @@ void carMover(int spaceNum) {
 	int a = 1;
 	int b = 1;
 	int c = 1;
-/*
-if num 0-11 move a 1 space
-if num 12-23 move a 2 space
-if num 24-35 move a 3 space
-if num 36-47 move b 1 space
-if num 48-59 move b 2 space
-if num 60-71 move b 3 space
-if num 72-83 move c 1 space
-if num 84-95 move c 2 space
-if num 96-107 move c 3 space
-*/
-	while ((a != 80)||(b != 80)||(c != 80)){
-		
+	char winner;
+	char second;
+	char loser;
+
+	while (a < 80 && b < 80 && c < 80) {
+
 		switch (spaceNum) {
-			case 0: printf("0");
-				break;
-			case 1: printf("1");
-				break;
-			case 2: printf("2");
-				break;
-			case 3: printf("3");
-				break;
-			case 4: printf("4");
-				break;
-			case 5: printf("5");
-				break;
-			case 6: printf("6");
-				break;
-			case 7: printf("7");
-				break;
-			case 8: printf("8");
-				break;
-			case 9: printf("9");
-				break;
-		}
-		spaceNum = randomGen();
-		delay(1);
-	}
+		case 0: a++;
+			break;
+		case 1: a += 2;
+			break;
+		case 2: a += 3;
+			break;
+		case 3: b++;
+			break;
+		case 4: b += 2;
+			break;
+		case 5: b += 3;
+			break;
+		case 6: c++;
+			break;
+		case 7: c += 2;
+			break;
+		case 8: c += 3;
+			break;
+		} // Using randonGen figure out what car and how many spaces to move
+		spaceNum = randomGen(); // Get a new random number
+		delay(1); // Create a small delay for user to see race clearly
+
+		CLS;
+		printFinishLine();
+		printf("\n\n");
+		printf("-------------------------------------------------------------------------------|\n");
+		carA(a);
+		printf("\n");
+		printf("-------------------------------------------------------------------------------|\n");
+		carB(b);
+		printf("\n");
+		printf("-------------------------------------------------------------------------------|\n");
+		carC(c);
+		printf("\n");
+		printf("-------------------------------------------------------------------------------|\n");
+	} // Loop while no number is 80
+
+	findWinner(a, b, c); // Find and print out the winners
+
+}
+
+void findWinner(int a, int b, int c) {
+
+	// Find largest || winner
+	if (a > b && a > c) {
+		printf("a is winner\n");
+	} // a is the largest
+	else if (b > c) {
+		printf("b is winner\n");
+	} // b is the largest
+	else {
+		printf("c is winner\n");
+	} // c is the largest
+
+	// Find middle || second
+	if ((a > b && a < c) || (a > c && a < b)) {
+		printf("a is second\n");
+	} // a is the middle
+	else if ((b > a && b < c) || (b > c && b < a)) {
+		printf("b is second\n");
+	} // b is the middle
+	else {
+		printf("c is second\n");
+	} // c is the middle
+
+	// Find last || third
+	if (a < b && a < c) {
+		printf("Third place: CarA\n");
+	} // a is the smallest
+	else if (b < c) {
+		printf("Third place: CarB\n");
+	} // b is the smallest
+	else {
+		printf("Third place: CarC\n");
+	} // c is the smallest
 }
