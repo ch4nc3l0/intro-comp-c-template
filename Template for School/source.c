@@ -28,6 +28,7 @@ main() {
 	int lowest;
 	int counter = 1;
 	int average;
+	int isPrime;
 	float productResult = 1;
 
 	// Print progam instructions
@@ -78,21 +79,19 @@ main() {
 		else {
 			printf("The number %i is an odd number\n", userInput); // Print number is odd
 		} // If num is not divisable it is odd
-		
-		
-		if (userInput < 1) {
+
+		isPrime = 1; // Default isPrime to true or 1
+		if (userInput <= 1) {
 			isPrime = 0;
 		} // Check if userInput is negitive or 1 => not a prime number 
-		else {
-			isPrime = 1;
+		else if (userInput > 1) {
+			for (int i = 2; i < userInput; i++) {
+				if ((userInput % i) == 0) {
+					isPrime = 0;
+				} // Check every number up to userInput to check if it is divisible by something other than 1 evenly
+			} // Loop to go through every number up to userInput
 		} // If userInput is greater than 1 run check to see if prime
 
-		for (int i = 2; i < userInput; i++) {
-			if ((userInput % i) == 0) {
-				isPrime = 0;
-			} // Check every number up to userInput to check if it is divisible by something other than 1 evenly
-		} // Loop to go through every number up to userInput
-		
 		if (isPrime == 1) {
 			printf("The number %i is a prime number\n", userInput);
 		} // If isPrime is true print is prime
