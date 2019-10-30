@@ -35,15 +35,39 @@ void findWinner(int a, int b, int c); // Find what car came in 1st | 2nd | 3rd
 				Main
 ***********************************/
 main() {
+	char restartRace = 'Y'; // Track if user entered "N"
+
 	srand(time(0)); // Generate random seed of number
 
-	//
-	printMenu();
+	
+	
 
+	while (restartRace == 'Y'){ 
+		printMenu();
+		CLS;
+		printFinishLine();
+		carMover(randomGen());
+		printf("\n\n");
+		printf("\t\t Would you like to restart the race? (Y/N)");
+		scanf(" %c", &restartRace);
+		restartRace = toupper(restartRace);
+		while (restartRace != 'N' && restartRace != 'Y') {
+			CLS;
+			printf("Please enter Y to restart the race or N to close the program\n");
+			scanf(" %c", &restartRace);
+			restartRace = toupper(restartRace);
+		}
+		CLS;
+	}
 
-	CLS;
-	printFinishLine();
-	carMover(randomGen());
+	// Print closing message
+	printf("\n\n");
+	printf("\t\t**************************\n");
+	printf("\t\t**Thank you for visiting**\n");
+	printf("\t\t**   Chance's Speedway  **\n");
+	printf("\t\t**************************\n");
+	
+
 
 
 
@@ -121,6 +145,7 @@ void delay(int time) {
 }
 
 void carMover(int spaceNum) {
+	// Init variables
 	int a = 1;
 	int b = 1;
 	int c = 1;
@@ -174,36 +199,41 @@ void carMover(int spaceNum) {
 
 void findWinner(int a, int b, int c) {
 
+	printf("\n\n\n");
+	printf("\t\t****************************\n");
+
 	// Find largest || winner
 	if (a > b && a > c) {
-		printf("a is winner\n");
+		printf("\t\t****   First Place: A   ****\n");
 	} // a is the largest
 	else if (b > c) {
-		printf("b is winner\n");
+		printf("\t\t****   First Place: B   ****\n");
 	} // b is the largest
 	else {
-		printf("c is winner\n");
+		printf("\t\t****   First Place: C   ****\n");
 	} // c is the largest
 
 	// Find middle || second
 	if ((a > b && a < c) || (a > c && a < b)) {
-		printf("a is second\n");
+		printf("\t\t****   Second Place: A  ****\n");
 	} // a is the middle
 	else if ((b > a && b < c) || (b > c && b < a)) {
-		printf("b is second\n");
+		printf("\t\t****   Second Place: B  ****\n");
 	} // b is the middle
 	else {
-		printf("c is second\n");
+		printf("\t\t****   Second Place: C  ****\n");
 	} // c is the middle
 
 	// Find last || third
 	if (a < b && a < c) {
-		printf("Third place: CarA\n");
+		printf("\t\t****   Third place: A   ****\n");
 	} // a is the smallest
 	else if (b < c) {
-		printf("Third place: CarB\n");
+		printf("\t\t****   Third place: B   ****\n");
 	} // b is the smallest
 	else {
-		printf("Third place: CarC\n");
+		printf("\t\t****   Third place: C   ****\n");
 	} // c is the smallest
-}
+
+	printf("\t\t****************************\n");
+} // Find the winner then print out the correct statement
