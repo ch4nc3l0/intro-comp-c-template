@@ -10,12 +10,13 @@
 - avg
 - sum
 - result
-- array[1000]
+- arr[1000]
 
 
 **Functions:**
 - int addToArr(int num)
-- int avgArr(int array)
-- int sumArr(int array)
-- void showArr(int array)
+- int avgArr(int arr)
+- int sumArr(int arr)
+- void showArr(int arr)
 - void printMenu()
+- void printInputError()
