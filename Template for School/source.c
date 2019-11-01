@@ -22,7 +22,7 @@ int sumArr(int arr); // Calculate the sum of the nums in an array
 void showArr(int arr); // Print all nums in an array
 void printMenu(); // Print the main menu with instructions
 int getValidCharInput(char input); // Gets a valid char user returns 0 if not valid 1 if valid
-
+void invalidInputPrinter(); // Prints to screen if input is invalid
 
 /***********************************
 		Global Variables
@@ -40,21 +40,21 @@ main() {
 	int sum;
 	int result;
 	int arr[1000];
-	int validInput = 0; // Set valid input to false 0=false 1=true
+	int validChar = 0; // Set validChar to false 0=false 1=true
+	int validInt = 0; // setSet validInt to false 0=false 1=true
 
 
-	while (validInput = 0) {
+	while (validChar == 0) {
 		printMenu(); // Print main menu
 		scanf(" %c", &userChar); // Get user char input & assign to userChar
-		validInput = getValidCharInput(userChar); // Check if input was valid
-	}
+		userChar = toupper(userChar); // Standardize uppercase and lowercase to mean the same thing
+		validChar = getValidCharInput(userChar); // Check if input was valid
+		CLS; // Clear menu (if input is not valid the error message will show at the top of the menu during the next loop)
+		if (validChar == 0) {
+			invalidInputPrinter();
+		} // If validChar is still not 1 print an error message
+	} // While no valid input continue loop
 
-
-
-	// Get user input
-	scanf(" %c", &userChar);
-
-	// Validate input
 
 	// While input is not quit run switch
 
@@ -104,4 +104,28 @@ void printMenu() {
 	printf("Your Command: ");
 } // Print the main menu
 
-// Validate input
+// Validate Char
+int getValidCharInput(char input) {
+	// Declare var
+	int valid;
+
+
+	if ((input == 'E') || (input == 'S') || (input == 'A') || (input == 'D') || (input == 'Q')) {
+		valid = 1;
+	}
+	else {
+		valid = 0;
+	}
+
+	return valid;
+
+}
+
+// Print invalid input message
+void invalidInputPrinter() {
+	printf("    ******************************\n");
+	printf("    **    NOT A VALID INPUT     **\n");
+	printf("    **  READ MENU TO SEE VALID  **\n");
+	printf("    **      INPUT OPTIONS       **\n");
+	printf("    ******************************\n");
+}
