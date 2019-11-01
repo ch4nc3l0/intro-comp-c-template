@@ -21,7 +21,7 @@ int avgArr(int arr); // Calculate average of the nums in an array
 int sumArr(int arr); // Calculate the sum of the nums in an array
 void showArr(int arr); // Print all nums in an array
 void printMenu(); // Print the main menu with instructions
-void inputValidator(); // Validate user inputs
+int getValidCharInput(char input); // Gets a valid char user returns 0 if not valid 1 if valid
 
 
 /***********************************
@@ -40,8 +40,19 @@ main() {
 	int sum;
 	int result;
 	int arr[1000];
+	int validInput = 0; // Set valid input to false 0=false 1=true
 
-	// Print main menu
+
+	while (validInput = 0) {
+		printMenu(); // Print main menu
+		scanf(" %c", &userChar); // Get user char input & assign to userChar
+		validInput = getValidCharInput(userChar); // Check if input was valid
+	}
+
+
+
+	// Get user input
+	scanf(" %c", &userChar);
 
 	// Validate input
 
@@ -73,26 +84,24 @@ main() {
 		Function Definitions
 ***********************************/
 
+// Print menu function
 void printMenu() {
-	printf("__________________________");
-}
+	printf("|\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\|\n");
+	printf("|         ** Main Menu **           |\n");
+	printf("|     Enter one of the commands     |\n");
+	printf("|            to continue            |\n");
+	printf("| _________________________________ |\n");
+	printf("||                                 ||\n");
+	printf("|| 1. [E]nter a new number         ||\n");
+	printf("|| 2. [S]um all numbers entered    ||\n");
+	printf("|| 3. [A]verage all numbers entered||\n");
+	printf("|| 4. [D]isplay all numbers entered||\n");
+	printf("|| 5. [Q]uit the application       ||\n");
+	printf("||_________________________________||\n");
+	printf("|                                   |\n");
+	printf("|\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\|\n");
+	printf("\n");
+	printf("Your Command: ");
+} // Print the main menu
 
-/*
-
-|\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\|
-|         ** Main Menu **           |
-|     Enter one of the commands     |
-|            to continue            |
-| _________________________________ |
-||                                 ||
-|| 1. [E]nter a new number         ||
-|| 2. [S]um all numbers entered    ||
-|| 3. [A]verage all numbers entered||
-|| 4. [D]isplay all numbers entered||
-|| 5. [Q]uit the application       ||
-||_________________________________||
-|                                   |
-|\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\|
-
-
-*/              
+// Validate input
