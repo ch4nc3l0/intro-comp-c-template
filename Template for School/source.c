@@ -21,7 +21,7 @@ int avgArr(int arr); // Calculate average of the nums in an array
 int sumArr(int arr); // Calculate the sum of the nums in an array
 void showArr(int arr); // Print all nums in an array
 void printMenu(); // Print the main menu with instructions
-void printInputError(); // Clear screen and instruct user to input valid input
+void inputValidator(); // Validate user inputs
 
 
 /***********************************
@@ -41,7 +41,29 @@ main() {
 	int result;
 	int arr[1000];
 
+	// Print main menu
 
+	// Validate input
+
+	// While input is not quit run switch
+
+		// Switch main menu
+
+		// Enter a num
+
+		// Display sum of all nums
+
+		// Display avg of all nums
+
+		// Display all nums entered
+
+	// Get next input from user
+
+	// Validate input & start loop again || end loop
+
+	// After validation print main menu again
+
+	// If we reach outside of main loop say goodbye to user, the application was closed
 
 
 	PAUSE;
@@ -50,3 +72,27 @@ main() {
 /***********************************
 		Function Definitions
 ***********************************/
+
+void printMenu() {
+	printf("__________________________");
+}
+
+/*
+
+|\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\|
+|         ** Main Menu **           |
+|     Enter one of the commands     |
+|            to continue            |
+| _________________________________ |
+||                                 ||
+|| 1. [E]nter a new number         ||
+|| 2. [S]um all numbers entered    ||
+|| 3. [A]verage all numbers entered||
+|| 4. [D]isplay all numbers entered||
+|| 5. [Q]uit the application       ||
+||_________________________________||
+|                                   |
+|\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\|
+
+
+*/              

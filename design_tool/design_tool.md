@@ -19,4 +19,4 @@
 - int sumArr(int arr)
 - void showArr(int arr)
 - void printMenu()
-- void printInputError()
+- void inputValidator()
