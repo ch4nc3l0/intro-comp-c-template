@@ -130,26 +130,24 @@ void printMenu(int i) {
 
 	// CASE 4 PRINT ADD ARRAY MENU
 	case 4:
-		printf("+---------------------------+\n");
-		printf("|      ADD ALL NUMBERS      |\n");
-		printf("+---------------------------+\n");
-		printf("|                           |\n");
-		printf("|      Press any button     |\n");
-		printf("|        to continue        |\n");
-		printf("|                           |\n");
-		printf("+---------------------------+\n");
+		printf("     +---------------------------+\n");
+		printf("     |      Add ALL NUMBERS      |\n");
+		printf("     +---------------------------+\n");
+		printf("+-------------------------------------+\n");
+		printf("|       ALL NUMBERS ADD UP TO:        |\n");
+		printf("+-------------------------------------+\n");
 		break;
 
 	case 5:
-		printf("+---------------------------+\n");
-		printf("|    DISPLAY ALL NUMBERS    |\n");
-		printf("+---------------------------+\n");
-		printf("|                           |\n");
-		printf("|      Press any button     |\n");
-		printf("|        to continue        |\n");
-		printf("|                           |\n");
-		printf("+---------------------------+\n");
+		printf("     +---------------------------+\n");
+		printf("     |    DISPLAY ALL NUMBERS    |\n");
+		printf("     +---------------------------+\n");
+		printf("+-------------------------------------+\n");
+		printf("|    ALL NUMBERS ENTERED SO FAR:      |\n");
+		printf("+-------------------------------------+\n");
 		break;
+
+
 
 	// CASE 6 PRINT ERROR MESSAGE
 	case 6:
@@ -158,6 +156,11 @@ void printMenu(int i) {
 		printf("    **  READ MENU TO SEE VALID  **\n");
 		printf("    **      INPUT OPTIONS       **\n");
 		printf("    ******************************\n");
+		break;
+
+	case 7:
+
+		break;
 	}
 } // Print the main menu
 
@@ -248,17 +251,10 @@ int addToArr(int arr[], int arrSize) {
 
 // Show all num in the array
 void showArr(int arr[], int arrSize) {
-	char throwAway;
 
 	CLS;
 	printMenu(5);
-	
 
-
-	CLS;
-	printf("+-------------------------------------+\n");
-	printf("|    ALL NUMBERS ENTERED SO FAR:      |\n");
-	printf("+-------------------------------------+\n");
 	for (int i = 0; i < arrSize; i++) {
 		printf("%i: %i\n", i, arr[i]);
 	}
