@@ -34,7 +34,6 @@ char getValidCharInput(); // Gets a valid char input
 main() {
 	// Declare variables
 	char userChar;
-	int userInt;
 	int arr[1000];
 	int arrSize = 0;
 
@@ -58,6 +57,7 @@ main() {
 			break;
 		case 'D':
 			// Display all nums entered
+			showArr(arr, arrSize);
 			break;
 		}
 
@@ -244,4 +244,23 @@ int addToArr(int arr[], int arrSize) {
 			printMenu(6);
 		}
 	}
+}
+
+// Show all num in the array
+void showArr(int arr[], int arrSize) {
+	char throwAway;
+
+	CLS;
+	printMenu(5);
+	
+
+
+	CLS;
+	printf("+-------------------------------------+\n");
+	printf("|    ALL NUMBERS ENTERED SO FAR:      |\n");
+	printf("+-------------------------------------+\n");
+	for (int i = 0; i < arrSize; i++) {
+		printf("%i: %i\n", i, arr[i]);
+	}
+	PAUSE;
 }
