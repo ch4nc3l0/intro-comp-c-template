@@ -36,6 +36,7 @@ main() {
 	char userChar;
 	int arr[1000];
 	int arrSize = 0;
+	int sumResult;
 
 
 	// Get user input for switch menu
@@ -51,6 +52,7 @@ main() {
 			break;
 		case 'S':
 			// Display sum of all nums
+			sumResult = sumArr(arr, arrSize);
 			break;
 		case 'A':
 			// Display avg of all nums
@@ -67,6 +69,7 @@ main() {
 	} // Continue to run app while Q is not entered
 
 	// Run QuitAPP
+	printMenu(7);
 
 	
 
@@ -159,7 +162,11 @@ void printMenu(int i) {
 		break;
 
 	case 7:
-
+		printf("    ******************************\n");
+		printf("    **    GOODBYE, THANK YOU    **\n");
+		printf("    **    FOR USING THE APP!    **\n");
+		printf("    **      SEE YOU SOON!       **\n");
+		printf("    ******************************\n");
 		break;
 	}
 } // Print the main menu
@@ -259,4 +266,23 @@ void showArr(int arr[], int arrSize) {
 		printf("%i: %i\n", i, arr[i]);
 	}
 	PAUSE;
+}
+
+int sumArr(int arr[], int arrSize) {
+	int sumResult = 0;
+
+	CLS; // Clear screen of any previous printf
+
+	// Print Menu
+	printMenu(4);
+
+	for (int i = 0; i < arrSize; i++) {
+		sumResult += arr[i];
+	}
+	printf("+-------------------------------------+\n");
+	printf("              %i\n", sumResult);
+	printf("+-------------------------------------+\n");
+
+	PAUSE;
+	return sumResult;
 }
