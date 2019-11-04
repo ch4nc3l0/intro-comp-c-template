@@ -16,13 +16,12 @@
 /***********************************
 		Function Prototypes
 ***********************************/
-int addToArr(); // Add a num to an array
+int addToArr(int arr[], int arrSize); // Add a num to an array
 int avgArr(int arr); // Calculate average of the nums in an array
-int sumArr(int arr); // Calculate the sum of the nums in an array
-void showArr(int arr); // Print all nums in an array
-void printMenu(); // Print the main menu with instructions
+int sumArr(int arr[], int arrSize); // Calculate the sum of the nums in an array
+void showArr(int arr[], int arrSize); // Print all nums in an array
+void printMenu(); // Print the different app menus
 char getValidCharInput(); // Gets a valid char input
-void invalidInputPrinter(); // Prints to screen if input is invalid
 
 /***********************************
 		Global Variables
@@ -37,13 +36,10 @@ main() {
 	char userChar;
 	int userInt;
 	int arr[1000];
+	int arrSize = 0;
 
 
-	userInt = addToArr();
-	userChar = addToArr();
-	
-	/*
-	// Get user input
+	// Get user input for switch menu
 	userChar = getValidCharInput();
 	
 	// While input is not quit run switch
@@ -51,7 +47,8 @@ main() {
 		// Switch main menu
 		switch (userChar) {
 		case 'E':
-			// Enter a num
+			// Run add to array
+			arrSize = addToArr(arr, arrSize);
 			break;
 		case 'S':
 			// Display sum of all nums
@@ -71,7 +68,7 @@ main() {
 
 	// Run QuitAPP
 
-	*/
+	
 
 
 	PAUSE;
@@ -117,6 +114,50 @@ void printMenu(int i) {
 		printf("]********************************[\n");
 		printf("\n Your New Number: "); // Print Instructions for adding a number to the array
 		break;
+
+	// CASE 3 PRINT PROMT TO ASK USER TO INPUT ANOTHER NUMBER
+	case 3:
+		printf(" //_-_-_-_-_-_-_-_-_-_-//\n");
+		printf(" //                    //\n");
+		printf(" //   Would you like   //\n");
+		printf(" //      to input      //\n");
+		printf(" //   another number?  //\n");
+		printf(" //    (Y)es or (N)o   //\n");
+		printf(" //                    //\n");
+		printf(" //_-_-_-_-_-_-_-_-_-_-//\n");
+		printf("\n Your Response: ");
+		break;
+
+	// CASE 4 PRINT ADD ARRAY MENU
+	case 4:
+		printf("+---------------------------+\n");
+		printf("|      ADD ALL NUMBERS      |\n");
+		printf("+---------------------------+\n");
+		printf("|                           |\n");
+		printf("|      Press any button     |\n");
+		printf("|        to continue        |\n");
+		printf("|                           |\n");
+		printf("+---------------------------+\n");
+		break;
+
+	case 5:
+		printf("+---------------------------+\n");
+		printf("|    DISPLAY ALL NUMBERS    |\n");
+		printf("+---------------------------+\n");
+		printf("|                           |\n");
+		printf("|      Press any button     |\n");
+		printf("|        to continue        |\n");
+		printf("|                           |\n");
+		printf("+---------------------------+\n");
+		break;
+
+	// CASE 6 PRINT ERROR MESSAGE
+	case 6:
+		printf("    ******************************\n");
+		printf("    **    NOT A VALID INPUT     **\n");
+		printf("    **  READ MENU TO SEE VALID  **\n");
+		printf("    **      INPUT OPTIONS       **\n");
+		printf("    ******************************\n");
 	}
 } // Print the main menu
 
@@ -126,6 +167,8 @@ char getValidCharInput() {
 	// Declare Var
 	char userChar;
 	int validChar = 0; // Set validChar to false 0=false 1=true
+
+	CLS; // Clear screen just in case coming from previous function
 
 	while (validChar == 0) {
 		printMenu(1); // Print main menu
@@ -137,43 +180,68 @@ char getValidCharInput() {
 		} // If the input matches one of the menu options the input is valid
 		else {
 			validChar = 0;
-			invalidInputPrinter(); // Print invalid input
+			printMenu(6); // Print invalid input
 		} // If no match the input must be invalid
 	} // While no valid input continue loop
 	return userChar; // Return the valid userChar
 } // Function returns a valid char for the menu application
 
 
-// Print invalid input message
-void invalidInputPrinter() {
-	printf("    ******************************\n");
-	printf("    **    NOT A VALID INPUT     **\n");
-	printf("    **  READ MENU TO SEE VALID  **\n");
-	printf("    **      INPUT OPTIONS       **\n");
-	printf("    ******************************\n");
-} // Print a nicely spaced error message for the user
-
-int addToArr() {
+int addToArr(int arr[], int arrSize) {
 	// Declare Var
 	int userInt;
-	int validInput = 0;
+	char goAgain;
+	int validChar = 0;
 
+	// Clear previous screen
+	CLS;
+
+	// Print addToArr menu
 	printMenu(2);
 
-	// Check if input is vaild
+	// Check if input is a number
 	while (scanf(" %i", &userInt) != 1) {
 		while (getchar() != '\n') {
 			CLS;
-			invalidInputPrinter();
-			printMenu(2);
-		}
-	}
+			printMenu(6); // Prints invalid message
+			printMenu(2); // Prints addToArr message
+		} // Clears any bad input from scanf & prints menu again
+	} // If input is not a number loop forever
 
 	// Add to array if valid input
+	if (arrSize >= 0) {
+		arr[arrSize] = userInt;
 
+		
+		printf("%i added to the array\n", arr[arrSize]);
+		printf("Array Size: %i\n", arrSize);
+		arrSize++;
+		PAUSE;
+	}
+	else if (arrSize > 1000) {
+		printf("Array Limit Reached!! Restart application to start again"); // Stop input at 1000 numbers
+		PAUSE;
+	}
 
+	CLS;
 	// Recursive call if user enters y to add another num?
-	addToArr();
-
-	return userInt;
+	while (validChar == 0) {
+		// Ask the user to enter another int
+		
+		printMenu(3);
+		scanf(" %c", &goAgain);
+		goAgain = toupper(goAgain);
+		if (goAgain == 'Y'){
+			validChar = 1;
+			addToArr(arr, arrSize);
+		}
+		else if (goAgain == 'N') {
+			validChar = 1;
+			return arrSize;
+		}
+		else {
+			CLS;
+			printMenu(6);
+		}
+	}
 }
