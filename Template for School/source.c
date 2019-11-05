@@ -17,7 +17,7 @@
 		Function Prototypes
 ***********************************/
 int addToArr(int arr[], int arrSize); // Add a num to an array
-int avgArr(int arr); // Calculate average of the nums in an array
+int avgArr(int arr[], int arrSize); // Calculate average of the nums in an array
 int sumArr(int arr[], int arrSize); // Calculate the sum of the nums in an array
 void showArr(int arr[], int arrSize); // Print all nums in an array
 void printMenu(); // Print the different app menus
@@ -37,6 +37,7 @@ main() {
 	int arr[1000];
 	int arrSize = 0;
 	int sumResult;
+	int avgResult;
 
 
 	// Get user input for switch menu
@@ -48,14 +49,15 @@ main() {
 		switch (userChar) {
 		case 'E':
 			// Run add to array
-			arrSize = addToArr(arr, arrSize);
+			arrSize = addToArr(arr, arrSize);// Store size of arr to pass to other functions
 			break;
 		case 'S':
 			// Display sum of all nums
-			sumResult = sumArr(arr, arrSize);
+			sumResult = sumArr(arr, arrSize);// Don't need to store var, but it's possible
 			break;
 		case 'A':
 			// Display avg of all nums
+			avgResult = avgArr(arr, arrSize);// Don't need to store var, but it's possible
 			break;
 		case 'D':
 			// Display all nums entered
@@ -85,7 +87,7 @@ main() {
 void printMenu(int i) {
 	switch (i) {
 
-	// CASE 1 PRINT MAIN MENU
+		// CASE 1 PRINT MAIN MENU
 	case 1:
 		printf("|\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\|\n");
 		printf("|         ** Main Menu **           |\n");
@@ -105,7 +107,7 @@ void printMenu(int i) {
 		printf("Your Command: ");
 		break;
 
-	// CASE 2 PRINT ADD TO ARRAY MENU
+		// CASE 2 PRINT ADD TO ARRAY MENU
 	case 2:
 		printf("]================================[\n");
 		printf("]         ENTER A NUMBER         [\n");
@@ -118,7 +120,7 @@ void printMenu(int i) {
 		printf("\n Your New Number: "); // Print Instructions for adding a number to the array
 		break;
 
-	// CASE 3 PRINT PROMT TO ASK USER TO INPUT ANOTHER NUMBER
+		// CASE 3 PRINT PROMT TO ASK USER TO INPUT ANOTHER NUMBER
 	case 3:
 		printf(" //_-_-_-_-_-_-_-_-_-_-//\n");
 		printf(" //                    //\n");
@@ -131,7 +133,7 @@ void printMenu(int i) {
 		printf("\n Your Response: ");
 		break;
 
-	// CASE 4 PRINT ADD ARRAY MENU
+		// CASE 4 PRINT ADD ARRAY MENU
 	case 4:
 		printf("     +---------------------------+\n");
 		printf("     |      Add ALL NUMBERS      |\n");
@@ -152,7 +154,7 @@ void printMenu(int i) {
 
 
 
-	// CASE 6 PRINT ERROR MESSAGE
+		// CASE 6 PRINT ERROR MESSAGE
 	case 6:
 		printf("    ******************************\n");
 		printf("    **    NOT A VALID INPUT     **\n");
@@ -167,6 +169,15 @@ void printMenu(int i) {
 		printf("    **    FOR USING THE APP!    **\n");
 		printf("    **      SEE YOU SOON!       **\n");
 		printf("    ******************************\n");
+		break;
+
+	case 8:
+		printf("     +---------------------------+\n");
+		printf("     |   CALCULATE AVG OF NUMS   |\n");
+		printf("     +---------------------------+\n");
+		printf("+-------------------------------------+\n");
+		printf("|     AVG OF ALL NUMBERS ENTERED:     |\n");
+		printf("+-------------------------------------+\n");
 		break;
 	}
 } // Print the main menu
@@ -279,10 +290,49 @@ int sumArr(int arr[], int arrSize) {
 	for (int i = 0; i < arrSize; i++) {
 		sumResult += arr[i];
 	}
-	printf("+-------------------------------------+\n");
-	printf("              %i\n", sumResult);
-	printf("+-------------------------------------+\n");
+
+	// Check if arrSize is empty
+	if (arrSize == 0) {
+		printf("**** Please input a number before finding the sum ****\n");
+	}
+	else {
+		printf("+-------------------------------------+\n");
+		printf("              %i\n", sumResult);
+		printf("+-------------------------------------+\n");
+	}
+
 
 	PAUSE;
 	return sumResult;
+}
+
+int avgArr(int arr[], int arrSize) {
+	int sumResult = 0;
+	int avgResult = 0;
+
+	CLS;
+
+	printMenu(8);
+
+	for (int i = 0; i < arrSize; i++) {
+		sumResult += arr[i];
+	}
+
+	// Check if arrSize is empty
+	if (arrSize == 0) {
+		printf("**** Please input a number before finding the average ****\n");
+	}
+	else {
+		avgResult = sumResult / arrSize;
+		printf("+-------------------------------------+\n");
+		printf("              %i\n", avgResult);
+		printf("+-------------------------------------+\n");
+	}
+	
+	PAUSE;
+
+	return avgResult;
+	
+
+
 }
