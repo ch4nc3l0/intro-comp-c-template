@@ -70,12 +70,12 @@ main() {
 
 	} // Continue to run app while Q is not entered
 
-	// Run QuitAPP
+	// Run QuitAPP if Q is entered
 	printMenu(7);
 
 	
 
-
+	// Pause for the user to see results
 	PAUSE;
 } // end of main
 
@@ -113,11 +113,6 @@ void printMenu(int i) {
 		printf("]         ENTER A NUMBER         [\n");
 		printf("]       TO ADD TO THE LIST       [\n");
 		printf("]================================[\n");
-		printf("]********************************[\n");
-		printf("]    Warning: This app can only  [\n");
-		printf("]     Accept up to 1000 inputs   [\n");
-		printf("]********************************[\n");
-		printf("\n Your New Number: "); // Print Instructions for adding a number to the array
 		break;
 
 		// CASE 3 PRINT PROMT TO ASK USER TO INPUT ANOTHER NUMBER
@@ -179,6 +174,26 @@ void printMenu(int i) {
 		printf("|     AVG OF ALL NUMBERS ENTERED:     |\n");
 		printf("+-------------------------------------+\n");
 		break;
+
+	case 9:
+		printf("]********************************[\n");
+		printf("]    Warning: This app can only  [\n");
+		printf("]     Accept up to 1000 inputs   [\n");
+		printf("]********************************[\n");
+		break;
+
+	case 10:
+		printf("    **** Array Limit Reached!! ****    \n");
+		printf(" **** Last Input will not be added ****\n");
+		printf("+-------------------------------------+\n");
+		printf("|  Would you like to restart program? |\n");
+		printf("+-------------------------------------+\n");
+		printf("|                                     |\n");
+		printf("|  (Y) will reset all inputs          |\n");
+		printf("|  (N) will go back to main menu      |\n");
+		printf("|                                     |\n");
+		printf("+-------------------------------------+\n");
+		break;
 	}
 } // Print the main menu
 
@@ -212,6 +227,7 @@ int addToArr(int arr[], int arrSize) {
 	// Declare Var
 	int userInt;
 	char goAgain;
+	char programRestart;
 	int validChar = 0;
 
 	// Clear previous screen
@@ -219,6 +235,14 @@ int addToArr(int arr[], int arrSize) {
 
 	// Print addToArr menu
 	printMenu(2);
+
+	if (arrSize > 800) {
+		printMenu(9);
+	}
+
+	printf("\n Your New Number: "); // Print Instructions for adding a number to the array
+
+
 
 	// Check if input is a number
 	while (scanf(" %i", &userInt) != 1) {
@@ -230,56 +254,76 @@ int addToArr(int arr[], int arrSize) {
 	} // If input is not a number loop forever
 
 	// Add to array if valid input
-	if (arrSize >= 0) {
+	if (arrSize <= 1000) {
 		arr[arrSize] = userInt;
 
 		
 		printf("%i added to the array\n", arr[arrSize]);
 		printf("Array Size: %i\n", arrSize);
 		arrSize++;
+		// Pause for the user to see results
 		PAUSE;
 	}
-	else if (arrSize > 1000) {
-		printf("Array Limit Reached!! Restart application to start again"); // Stop input at 1000 numbers
-		PAUSE;
-	}
+	else {
+		CLS;
+		printMenu(10);// Print input limit reached menu
+
+		while (scanf(" %c", &programRestart)) {
+			programRestart = toupper(programRestart);// Regulate input for easier validation
+			if (programRestart == 'Y') {
+				return 0;
+			}// Return 0 to reset arraySize, this will make it seem as program was reset  
+			else if (programRestart == 'N') {
+				return arrSize;
+			}// Stop user from input more num, but allow to use other funcs 
+			else{
+				CLS;
+				printMenu(6);
+				printMenu(10);
+			}// Print invalid input
+		}
+		
+	}// Stop input at 1000 numbers
 
 	CLS;
-	// Recursive call if user enters y to add another num?
-	while (validChar == 0) {
 		// Ask the user to enter another int
 		
 		printMenu(3);
-		scanf(" %c", &goAgain);
-		goAgain = toupper(goAgain);
-		if (goAgain == 'Y'){
-			validChar = 1;
-			addToArr(arr, arrSize);
+		while (scanf(" %c", &goAgain)) {
+			goAgain = toupper(goAgain);
+			if (goAgain == 'Y') {
+				validChar = 1;
+				addToArr(arr, arrSize);
+			}
+			else if (goAgain == 'N') {
+				validChar = 1;
+				return arrSize;
+			}// If N input 
+			else {
+				CLS; // Clear screen
+				printMenu(6); // Print error message
+				printMenu(3);
+			}// If invalid input print error message and get input again
 		}
-		else if (goAgain == 'N') {
-			validChar = 1;
-			return arrSize;
-		}
-		else {
-			CLS;
-			printMenu(6);
-		}
-	}
 }
 
 // Show all num in the array
 void showArr(int arr[], int arrSize) {
 
-	CLS;
-	printMenu(5);
+	CLS; // Clear input
+	printMenu(5); // Print display arr menu
 
 	for (int i = 0; i < arrSize; i++) {
 		printf("%i: %i\n", i, arr[i]);
-	}
+	}// Print out every number in arr
+
+	// Pause for the user to see results
 	PAUSE;
 }
 
+// Function to add the sum of an array
 int sumArr(int arr[], int arrSize) {
+	// Declare Var
 	int sumResult = 0;
 
 	CLS; // Clear screen of any previous printf
@@ -289,31 +333,35 @@ int sumArr(int arr[], int arrSize) {
 
 	for (int i = 0; i < arrSize; i++) {
 		sumResult += arr[i];
-	}
+	}// Loop through array and add to sumResult variable
 
 	// Check if arrSize is empty
 	if (arrSize == 0) {
 		printf("**** Please input a number before finding the sum ****\n");
-	}
+	}// If arr is empty print message to the user
 	else {
 		printf("+-------------------------------------+\n");
 		printf("              %i\n", sumResult);
 		printf("+-------------------------------------+\n");
-	}
+	}// if arr is not empty print result
 
-
+	// Pause for the user to see results
 	PAUSE;
+
+	// Return sumResult
 	return sumResult;
 }
 
+// Function to find the average of an array
 int avgArr(int arr[], int arrSize) {
 	int sumResult = 0;
 	int avgResult = 0;
 
-	CLS;
+	CLS; // Clear screen from prev functions
 
-	printMenu(8);
+	printMenu(8); // Print avgArr menu
 
+	// Loop to find sum
 	for (int i = 0; i < arrSize; i++) {
 		sumResult += arr[i];
 	}
@@ -321,18 +369,17 @@ int avgArr(int arr[], int arrSize) {
 	// Check if arrSize is empty
 	if (arrSize == 0) {
 		printf("**** Please input a number before finding the average ****\n");
-	}
+	}// if arr empty print message to user
 	else {
 		avgResult = sumResult / arrSize;
 		printf("+-------------------------------------+\n");
 		printf("              %i\n", avgResult);
 		printf("+-------------------------------------+\n");
-	}
+	}// if not empty find avg
 	
+	// Pause for the user to see results
 	PAUSE;
 
+	// Return avgResult
 	return avgResult;
-	
-
-
 }
