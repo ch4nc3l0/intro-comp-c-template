@@ -1,6 +1,6 @@
 //**************************************************************
 //...Written by..: Chance Gurley
-//...Date Written: OCT 29, 2019
+//...Date Written: NOV 4th, 2019
 //...Purpose.....: Programming class
 //**************************************************************
 
@@ -273,7 +273,8 @@ int addToArr(int arr[], int arrSize) {
 		// Ask the user to enter another int
 		
 		printMenu(3);// Print goAgain menu
-		while (scanf(" %c", &goAgain)) {
+		scanf(" %c", &goAgain);
+		while (validChar == 0) {
 			goAgain = toupper(goAgain);
 			if (goAgain == 'Y') {
 				validChar = 1;
@@ -287,6 +288,7 @@ int addToArr(int arr[], int arrSize) {
 				CLS; // Clear screen
 				printMenu(6);// Print error message
 				printMenu(3);// Print goAgain menu
+				scanf(" %c", &goAgain);
 			}// If invalid input print error message and get input again
 		}
 }// Fuction mainly adds to array, checks if inputs are valid, and checks if arrSize is over limit
