@@ -87,8 +87,7 @@ main() {
 void printMenu(int i) {
 	switch (i) {
 
-		// CASE 1 PRINT MAIN MENU
-	case 1:
+	case 1:// PRINT MAIN MENU
 		printf("|\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\|\n");
 		printf("|         ** Main Menu **           |\n");
 		printf("|     Enter one of the commands     |\n");
@@ -107,16 +106,14 @@ void printMenu(int i) {
 		printf("Your Command: ");
 		break;
 
-		// CASE 2 PRINT ADD TO ARRAY MENU
-	case 2:
+	case 2:// PRINT ADD TO ARRAY MENU
 		printf("]================================[\n");
 		printf("]         ENTER A NUMBER         [\n");
 		printf("]       TO ADD TO THE LIST       [\n");
 		printf("]================================[\n");
 		break;
 
-		// CASE 3 PRINT PROMT TO ASK USER TO INPUT ANOTHER NUMBER
-	case 3:
+	case 3:// PRINT PROMT TO ASK USER TO INPUT ANOTHER NUMBER
 		printf(" //_-_-_-_-_-_-_-_-_-_-//\n");
 		printf(" //                    //\n");
 		printf(" //   Would you like   //\n");
@@ -128,8 +125,7 @@ void printMenu(int i) {
 		printf("\n Your Response: ");
 		break;
 
-		// CASE 4 PRINT ADD ARRAY MENU
-	case 4:
+	case 4:// PRINT ADD ARRAY MENU
 		printf("     +---------------------------+\n");
 		printf("     |      Add ALL NUMBERS      |\n");
 		printf("     +---------------------------+\n");
@@ -138,7 +134,7 @@ void printMenu(int i) {
 		printf("+-------------------------------------+\n");
 		break;
 
-	case 5:
+	case 5: // Print dispArr menu
 		printf("     +---------------------------+\n");
 		printf("     |    DISPLAY ALL NUMBERS    |\n");
 		printf("     +---------------------------+\n");
@@ -147,10 +143,7 @@ void printMenu(int i) {
 		printf("+-------------------------------------+\n");
 		break;
 
-
-
-		// CASE 6 PRINT ERROR MESSAGE
-	case 6:
+	case 6: // Print Invalid input message
 		printf("    ******************************\n");
 		printf("    **    NOT A VALID INPUT     **\n");
 		printf("    **  READ MENU TO SEE VALID  **\n");
@@ -158,7 +151,7 @@ void printMenu(int i) {
 		printf("    ******************************\n");
 		break;
 
-	case 7:
+	case 7: // Print goodbye message
 		printf("    ******************************\n");
 		printf("    **    GOODBYE, THANK YOU    **\n");
 		printf("    **    FOR USING THE APP!    **\n");
@@ -166,7 +159,7 @@ void printMenu(int i) {
 		printf("    ******************************\n");
 		break;
 
-	case 8:
+	case 8: // Print avgArr menu
 		printf("     +---------------------------+\n");
 		printf("     |   CALCULATE AVG OF NUMS   |\n");
 		printf("     +---------------------------+\n");
@@ -175,14 +168,14 @@ void printMenu(int i) {
 		printf("+-------------------------------------+\n");
 		break;
 
-	case 9:
+	case 9:	// Print array limit warning message
 		printf("]********************************[\n");
 		printf("]    Warning: This app can only  [\n");
 		printf("]     Accept up to 1000 inputs   [\n");
 		printf("]********************************[\n");
 		break;
 
-	case 10:
+	case 10: // Print array limit reached message
 		printf("    **** Array Limit Reached!! ****    \n");
 		printf(" **** Last Input will not be added ****\n");
 		printf("+-------------------------------------+\n");
@@ -195,10 +188,8 @@ void printMenu(int i) {
 		printf("+-------------------------------------+\n");
 		break;
 	}
-} // Print the main menu
+} // Print the menu based on situation (main print function of application)
 
-
-// Get a vaild char from the user
 char getValidCharInput() {
 	// Declare Var
 	char userChar;
@@ -222,7 +213,6 @@ char getValidCharInput() {
 	return userChar; // Return the valid userChar
 } // Function returns a valid char for the menu application
 
-
 int addToArr(int arr[], int arrSize) {
 	// Declare Var
 	int userInt;
@@ -235,14 +225,10 @@ int addToArr(int arr[], int arrSize) {
 
 	// Print addToArr menu
 	printMenu(2);
-
 	if (arrSize > 800) {
 		printMenu(9);
-	}
-
+	}// If arraySize is near the 1000 input limit start displaying a warning to let the user know of the limit
 	printf("\n Your New Number: "); // Print Instructions for adding a number to the array
-
-
 
 	// Check if input is a number
 	while (scanf(" %i", &userInt) != 1) {
@@ -256,16 +242,14 @@ int addToArr(int arr[], int arrSize) {
 	// Add to array if valid input
 	if (arrSize <= 1000) {
 		arr[arrSize] = userInt;
-
-		
 		printf("%i added to the array\n", arr[arrSize]);
 		printf("Array Size: %i\n", arrSize);
 		arrSize++;
 		// Pause for the user to see results
 		PAUSE;
-	}
+	}// If the arrSize is under 1000 add user input into the array, and add one to the arraysize to keep track of it
 	else {
-		CLS;
+		CLS;// Clear screen
 		printMenu(10);// Print input limit reached menu
 
 		while (scanf(" %c", &programRestart)) {
@@ -281,33 +265,32 @@ int addToArr(int arr[], int arrSize) {
 				printMenu(6);
 				printMenu(10);
 			}// Print invalid input
-		}
+		}// Check if input is a char
 		
 	}// Stop input at 1000 numbers
 
 	CLS;
 		// Ask the user to enter another int
 		
-		printMenu(3);
+		printMenu(3);// Print goAgain menu
 		while (scanf(" %c", &goAgain)) {
 			goAgain = toupper(goAgain);
 			if (goAgain == 'Y') {
 				validChar = 1;
 				addToArr(arr, arrSize);
-			}
+			}// If y input get out of loop, call function again with updated params
 			else if (goAgain == 'N') {
 				validChar = 1;
 				return arrSize;
-			}// If N input 
+			}// If N input return new arrSize and go back to main menu
 			else {
 				CLS; // Clear screen
-				printMenu(6); // Print error message
-				printMenu(3);
+				printMenu(6);// Print error message
+				printMenu(3);// Print goAgain menu
 			}// If invalid input print error message and get input again
 		}
-}
+}// Fuction mainly adds to array, checks if inputs are valid, and checks if arrSize is over limit
 
-// Show all num in the array
 void showArr(int arr[], int arrSize) {
 
 	CLS; // Clear input
@@ -319,9 +302,8 @@ void showArr(int arr[], int arrSize) {
 
 	// Pause for the user to see results
 	PAUSE;
-}
+}// Show all num in the array
 
-// Function to add the sum of an array
 int sumArr(int arr[], int arrSize) {
 	// Declare Var
 	int sumResult = 0;
@@ -350,9 +332,8 @@ int sumArr(int arr[], int arrSize) {
 
 	// Return sumResult
 	return sumResult;
-}
+}// Function to add the sum of an array
 
-// Function to find the average of an array
 int avgArr(int arr[], int arrSize) {
 	int sumResult = 0;
 	int avgResult = 0;
@@ -382,4 +363,4 @@ int avgArr(int arr[], int arrSize) {
 
 	// Return avgResult
 	return avgResult;
-}
+}// Function to find the average of an array
