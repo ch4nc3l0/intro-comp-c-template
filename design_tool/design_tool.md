@@ -6,17 +6,20 @@
 
 **Variables:**
 - userChar
+- validChar
 - userInt
-- avg
-- sum
+- avgResult
+- sumResult
 - result
 - arr[1000]
-
+- arrSize
+- goAgain
+- programRestart
 
 **Functions:**
-- int addToArr(int num)
-- int avgArr(int arr)
-- int sumArr(int arr)
-- void showArr(int arr)
-- void printMenu()
-- void inputValidator()
+- int addToArr(int arr[], int arrSize)
+- int avgArr(int arr[], int arrSize)
+- int sumArr(int arr[], int arrSize)
+- void showArr(int arr[], int arrSize)
+- void printMenu(int i)
+- char getValidCharInput()

@@ -20,7 +20,7 @@ int addToArr(int arr[], int arrSize); // Add a num to an array
 int avgArr(int arr[], int arrSize); // Calculate average of the nums in an array
 int sumArr(int arr[], int arrSize); // Calculate the sum of the nums in an array
 void showArr(int arr[], int arrSize); // Print all nums in an array
-void printMenu(); // Print the different app menus
+void printMenu(int i); // Print the different app menus
 char getValidCharInput(); // Gets a valid char input
 
 /***********************************
