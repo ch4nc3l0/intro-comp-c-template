@@ -18,8 +18,9 @@
 ***********************************/
 void printMenu();
 void displayHandler(char arr[]);
+void goodbye();
 int inputHandler(char arr[]);
-int getRestart();
+int getRestart(int isError);
 
 /***********************************
 		Global Variables
@@ -32,26 +33,29 @@ int getRestart();
 main() {
 	// Declare variables
 	char userWord[47]; // Declare userword array with limit of 46 char
-	int validInput = 0; // Keep track if the input recieved is valid
+	int validInput = 0;// Keep track if the input recieved is valid
 	int restart = 1;
 
 	do {
+		
+
 		// Print menu **function**
 		printMenu();
 
 		// Get user word / Add to array **function**
 		do {
 			validInput = inputHandler(userWord);
-		} while (validInput == 0);
+		} while (validInput == 0);// Keep asking user for input until input is valid
 
 		// Display array 1- the same way user typed it 2- backwards 3- vertically 4- upside down vertical **function**
 		displayHandler(userWord);
 
 		// Restart?
-		restart = getRestart();
-	} while (restart = 1);
+		restart = getRestart(0);
+	} while (restart == 1); // Restart app if user presses Y to restart
 
 	// Goodbye
+	goodbye();
 
 	PAUSE;
 } // end of main
@@ -75,10 +79,11 @@ void printMenu() {
 
 // inputHandler
 int inputHandler(char arr[]) {
+	// Declare var
 	int strLen;
 	
 	// Get user input
-	scanf("%[^\n]%*c", arr); // Get full input [] tells scan what char I want to look for, \n = end input after enter is pressed.
+	scanf(" %[^\n]%*c", arr); // Get full input [] tells scan what char I want to look for, \n = end input after enter is pressed.
 	strLen = strlen(arr);// Get string length
 
 	if (strLen >= 46) {
@@ -168,6 +173,49 @@ void displayHandler(char arr[]) {
 }
 
 // Ask user if they want to restart
-int getRestart() {
+int getRestart(int isError) {
+	// Declare var
+	char userInput;
 
+	CLS;
+
+	if (isError == 1) {
+		printf("************************\n");
+		printf("** Error please enter **\n");
+		printf("**     only Y or N    **\n");
+		printf("************************\n");
+	}// If the argument is 1 print an error message
+	// The only way an argument of 1 is passed is
+	// a call made by this function.
+
+	// Print instructions to user
+	printf("\n\n");
+	printf("+-------------------------+\n");
+	printf("|    Would you like to    |\n");
+	printf("|    continue? Y or N     |\n");
+	printf("+-------------------------+\n");
+
+	// Get user input
+	scanf(" %c", &userInput);
+	// Capitalize result
+	userInput = toupper(userInput);
+	
+	if (userInput == 'Y') {
+		CLS; // Clean up
+		return 1;
+	}// If yes continue while loop
+	else if (userInput == 'N') {
+		CLS; // Clean up
+		return 0;
+	}// If no end while loop
+	else {
+		getRestart(1);
+	}// Input must be invalid, get input again
+}
+
+void goodbye() {
+	printf("+------------------------+\n");
+	printf("|  Thank you for using   |\n");
+	printf("|    this application    |\n");
+	printf("+------------------------+\n");
 }
