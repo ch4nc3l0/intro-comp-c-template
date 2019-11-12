@@ -1,6 +1,6 @@
 //**************************************************************
 //...Written by..: Chance Gurley
-//...Date Written: NOV 4th, 2019
+//...Date Written: NOV 12, 2019
 //...Purpose.....: Programming class
 //**************************************************************
 
@@ -16,7 +16,7 @@
 /***********************************
 		Function Prototypes
 ***********************************/
-
+void printMenu();
 
 /***********************************
 		Global Variables
@@ -28,10 +28,11 @@
 ***********************************/
 main() {
 	// Declare variables
-	char userWord[500] = ''; // Declare userword array with limit of 499 char
+	char userWord[500]; // Declare userword array with limit of 499 char
 	int letterPositioner = 0; // Keeps track of where letters are stored in array
 
 	// Print menu **function**
+	printMenu();
 
 	// Get user word / Add to array **function**
 
@@ -46,6 +47,18 @@ main() {
 		Function Definitions
 ***********************************/
 // Print menu
+void printMenu() {
+	printf("\n\n");
+	printf("\t\t +---------------------------+\n");
+	printf("\t\t | Welcome To Printing Chars |\n");
+	printf("\t\t |---------------------------|\n");
+	printf("\t\t |                           |\n");
+	printf("\t\t |    Please enter a word    |\n");
+	printf("\t\t |         to start          |\n");
+	printf("\t\t |                           |\n");
+	printf("\t\t +---------------------------+\n");
+	printf("\t\t Your Input: ");
+}
 
 // inputHandler
 
