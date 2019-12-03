@@ -1,6 +1,6 @@
 //**************************************************************
 //...Written by..: Chance Gurley
-//...Date Written: NOV 12, 2019
+//...Date Written: DEC 1, 2019
 //...Purpose.....: Programming class
 //**************************************************************
 
@@ -17,10 +17,15 @@
 		Function Prototypes
 ***********************************/
 void printMenu();
-void displayHandler(char arr[]);
-void goodbye();
-int inputHandler(char arr[]);
-int getRestart(int isError);
+int stateSelectorMenu(char person[]);
+void votingTool(int cadidateVotes[50][2], char states[50][20], int person);
+void initCandidateArray(int candidateVotes[50][2]);
+int mainMenuChoiceValidator();
+void showVotes(int trumpVotes[50][2], int bidenVotes[50][2], char states[50][20]);
+void showTies(int trumpVotes[50][2], int bidenVotes[50][2], char states[50][20]);
+int stateSelectorValidator();
+void statePrinter();
+void highAndLow(int trumpVotes[50][2], int bidenVotes[50][2], char states[50][20]);
 
 /***********************************
 		Global Variables
@@ -32,30 +37,51 @@ int getRestart(int isError);
 ***********************************/
 main() {
 	// Declare variables
-	char userWord[47]; // Declare userword array with limit of 46 char
-	int validInput = 0;// Keep track if the input recieved is valid
-	int restart = 1;
+	int trumpVotes[50][2];
+	int bidenVotes[50][2];
+	char states[50][20] = { "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut", "Delaware","Florida","Georgia","Hawaii","Idaho","Illinois", "Indiana","Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming" };
+	int mainMenuChoice = 99; // Set choice to something invalid
 
+	// Init candidatevotes arrays
+	initCandidateArray(trumpVotes);
+	initCandidateArray(bidenVotes);
+
+
+
+	// Switch using mainMenuChoice
 	do {
-		
-
-		// Print menu **function**
+		// Print Main Menu
 		printMenu();
+		// Get user choice
+		mainMenuChoice = mainMenuChoiceValidator();
 
-		// Get user word / Add to array **function**
-		do {
-			validInput = inputHandler(userWord);
-		} while (validInput == 0);// Keep asking user for input until input is valid
+		switch (mainMenuChoice) {
+		case 1:
+			votingTool(trumpVotes, states, 0);
+			CLS;
+			break;
+		case 2:
+			votingTool(bidenVotes, states, 1);
+			CLS;
+			break;
+		case 3:
+			showVotes(trumpVotes, bidenVotes, states);
+			CLS;
+			break;
+		case 4:
+			showTies(trumpVotes, bidenVotes, states);
+			CLS;
+			break;
+		case 5:
+			highAndLow(trumpVotes, bidenVotes, states);
+			CLS;
+			break;
+		}
+	} while (mainMenuChoice != 6); // If 6 is entered the app will say goodbye and close, until that happens run the app in a loop
 
-		// Display array 1- the same way user typed it 2- backwards 3- vertically 4- upside down vertical **function**
-		displayHandler(userWord);
 
-		// Restart?
-		restart = getRestart(0);
-	} while (restart == 1); // Restart app if user presses Y to restart
+	printf("\n\n\t\tBye time to go do something more important with your life! :)\n");
 
-	// Goodbye
-	goodbye();
 
 	PAUSE;
 } // end of main
@@ -63,159 +89,253 @@ main() {
 /***********************************
 		Function Definitions
 ***********************************/
-// Print menu
+// Print Menu
 void printMenu() {
-	printf("\n\n");
-	printf("\t\t +---------------------------+\n");
-	printf("\t\t | Welcome To Printing Chars |\n");
-	printf("\t\t |---------------------------|\n");
-	printf("\t\t |                           |\n");
-	printf("\t\t |   Please enter one word   |\n");
-	printf("\t\t |         to start          |\n");
-	printf("\t\t |                           |\n");
-	printf("\t\t +---------------------------+\n");
-	printf("\t\t Your Input: ");
+	printf("\n\n\t\t******************************************************************\n");
+	printf("\t\t**************************  Main Menu  ***************************\n");
+	printf("\t\t******************************************************************\n");
+	printf("\t\t1.\tEnter votes from a state for Donald Trump\n");
+	printf("\t\t2.\tEnter votes from a state for Joe Biden\n");
+	printf("\t\t3.\tDisplay total votes for each candidate\n");
+	printf("\t\t4.\tList the state name(s) where candidates tied\n");
+	printf("\t\t5.\tFor each candidate display the highest and lowest votes\n");
+	printf("\t\t6.\tElection is over, exit the program\n");
 }
 
-// inputHandler
-int inputHandler(char arr[]) {
-	// Declare var
-	int strLen;
-	
-	// Get user input
-	scanf(" %[^\n]%*c", arr); // Get full input [] tells scan what char I want to look for, \n = end input after enter is pressed.
-	strLen = strlen(arr);// Get string length
+int stateSelectorMenu(char person[]) {
+	int userStateChoice;
 
-	if (strLen >= 46) {
-		CLS;
-		printf("\n");
-		printf("\t******************************************\n");
-		printf("\t**  You entered a word that is longer   **\n");
-		printf("\t**     than any word in any major       **\n");
-		printf("\t**     english dictionary, Please       **\n");
-		printf("\t**       enter one valid word           **\n");
-		printf("\t******************************************\n");
-		printMenu();
-		return 0;
-	}
 
-	for (int i = 0; i <= strLen; i++) {
-		if (isdigit(arr[i])) {
-			CLS;
-			printf("\n");
-			printf("\t******************************************\n");
-			printf("\t**            DIGIT IN INPUT            **\n");
-			printf("\t**        Please enter ONE word         **\n");
-			printf("\t******************************************\n");
-			printMenu();
-			return 0;
-		}// Check each char in string, if one is a digit the user did not input a number.
-
-		else if (arr[i] == ' ') {
-			CLS;
-			printf("\n");
-			printf("\t******************************************\n");
-			printf("\t**            SPACE IN INPUT            **\n");
-			printf("\t**         Please enter ONE word        **\n");
-			printf("\t******************************************\n");
-			printMenu();
-			return 0;
-		}// Check each char, if their is a space it cannot be one word.
-	}// Check each character in string
-
-	// Input was valid
-	return 1;
-
-}
-
-// displayHandler
-void displayHandler(char arr[]) {
-	// Init variables
-	int strLen;
-	
-	CLS;// Clear screen
-	printf("\n\n");// Prep for other printf
-
-	strLen = strlen(arr); // Keep track of string length
-
-	// Print normal
-	printf("\t\t The word is\n");
-	printf("\t\t -----------\n");
-	printf("\t\t %s\n\n", arr);
-
-	// Print in reverse
-	printf("\t\t The word backwards is\n");
-	printf("\t\t ---------------------\n");
-	printf("\t\t");
-	for (int i = strLen; i >= 0; i--) {
-		printf("%c", arr[i]);
-	}// Print each char in array backwards by working at max arr then subtracting
+	printf("Select the state to add votes for %s\n", person);
 	printf("\n\n");
-
-	// Print vertical
-	printf("\t\t The word vertically is\n");
-	printf("\t\t ----------------------\n");
-	for (int i = 0; i <= strLen; i++) {
-		printf("\t\t %c\n", arr[i]);
-	}// Print each char in array with a \n to look vertical
-	
-
-	// Print vertical reverse
-	printf("\t\t The word vertically in reverse is\n");
-	printf("\t\t ---------------------------------");
-	for (int i = strLen; i >= 0; i--) {
-		printf("\t\t %c\n", arr[i]);
-	}// Print each char in array with a \n to look vertical, but do it backwards starting at arrMAX
-	printf("\n\n");
-	
-	// Pause app to let the user view results
-	PAUSE;
-}
-
-// Ask user if they want to restart
-int getRestart(int isError) {
-	// Declare var
-	char userInput;
-
+	statePrinter();
+	printf("\n\n Please enter your state choice...");
+	userStateChoice = stateSelectorValidator();
 	CLS;
+	return userStateChoice;
 
-	if (isError == 1) {
-		printf("************************\n");
-		printf("** Error please enter **\n");
-		printf("**     only Y or N    **\n");
-		printf("************************\n");
-	}// If the argument is 1 print an error message
-	// The only way an argument of 1 is passed is
-	// a call made by this function.
-
-	// Print instructions to user
-	printf("\n\n");
-	printf("+-------------------------+\n");
-	printf("|    Would you like to    |\n");
-	printf("|    continue? Y or N     |\n");
-	printf("+-------------------------+\n");
-
-	// Get user input
-	scanf(" %c", &userInput);
-	// Capitalize result
-	userInput = toupper(userInput);
-	
-	if (userInput == 'Y') {
-		CLS; // Clean up
-		return 1;
-	}// If yes continue while loop
-	else if (userInput == 'N') {
-		CLS; // Clean up
-		return 0;
-	}// If no end while loop
-	else {
-		getRestart(1);
-	}// Input must be invalid, get input again
 }
 
-void goodbye() {
-	printf("+------------------------+\n");
-	printf("|  Thank you for using   |\n");
-	printf("|    this application    |\n");
-	printf("+------------------------+\n");
+int stateSelectorValidator() {
+	int validator = 0;
+	int userChoice;
+	while (validator == 0) {
+		scanf(" %i", &userChoice);
+		if (userChoice >= 0 && userChoice <= 49) {
+			validator = 1;
+		}
+		else {
+			CLS;
+			printf("\t\t\t\t+---------------------------------+\n");
+			printf("\t\t\t\t|     Enter only a number 0-49    |\n");
+			printf("\t\t\t\t+---------------------------------+\n");
+			statePrinter();
+		}
+	}
+	return userChoice;
+}
+
+void votingTool(int candidateVotes[50][2], char states[50][20], int person) {
+	// Var init
+	char candidate[20];
+	int state; 
+	int votes;
+
+	// Set Candidate
+	if (person == 0) {
+		strncpy(candidate, "Trump", 20);
+	}
+	else if (person == 1) {
+		strncpy(candidate, "Biden", 20);
+	}
+	else {
+		printf("Error!!! Cannot determine who the canidate is!!!!!");
+	}
+	
+	// Get State
+	state = stateSelectorMenu(candidate);
+	// Ask how many votes did candidate get in state
+	printf("How many additional votes for %s in %s\n", candidate, states[state]);
+	// Get user input for state votes
+	scanf(" %i", &votes);
+	// Add the votes to the array under the state index
+	candidateVotes[state][1] += votes;
+	// End function
+	CLS;
+}// Function to add votes from a state to a candidate needs parameters candidateVotes array, States array, candidate int
+
+void initCandidateArray(int candidateVotes[50][2]) {
+	for (int i = 0; i <= 49; i++) {
+		candidateVotes[i][0] = i;
+		candidateVotes[i][1] = 0;
+	} // make arr 1-50state index make second part votes 
+}
+
+int mainMenuChoiceValidator() {
+	int mainMenuChoice;
+	scanf(" %i", &mainMenuChoice);
+	while (mainMenuChoice != 1 && mainMenuChoice != 2 && mainMenuChoice != 3 && mainMenuChoice != 4 && mainMenuChoice != 5 && mainMenuChoice != 6) {
+		CLS;
+		printf("\n\n");
+		printf("\t\t\t\t+---------------------------------+\n");
+		printf("\t\t\t\t|   Please Enter A Valid Choice   |\n");
+		printf("\t\t\t\t+---------------------------------+\n");
+		printMenu();
+		scanf(" %i", &mainMenuChoice);
+	}
+	CLS;
+	return mainMenuChoice;
+}// Gets, and validates main menu choice and returns choice
+
+void showVotes(int trumpVotes[50][2], int bidenVotes[50][2], char states[50][20]) {
+	// State Trump Biden array structure
+	int allVotes[50][4];
+	int trumpTotal = 0;
+	int bidenTotal = 0;
+		
+	// Print Votes Menu
+	printf("\n\n");
+	printf("\t\t+-------------------------------------------------------------+\n");
+	printf("\t\t|------------------       Total    Votes     -----------------|\n");
+	printf("\t\t|-------------------------------------------------------------|\n");
+	printf("\t\t+STATE(S)---------------------TRUMP-------------------BIDEN---+\n");
+
+	// Get votes for Trump
+	for (int i = 0; i <= 49; i++) {
+		// Set State Index
+		allVotes[i][0] = i;
+		// Set Trump Votes
+		allVotes[i][1] = trumpVotes[i][1];
+		// Set Biden Votes
+		allVotes[i][2] = bidenVotes[i][1]; // Note: could have been done without this array I learned about 2d arrays and are using them when not nessasary
+
+		// Only Print votes if one of the states votes is filled out
+		if (allVotes[i][1] != 0 || allVotes[i][2] != 0) {
+
+			// Print Votes on States with votes
+			printf("\t\t%s \t\t\t", states[i]);
+			if (i == 1 || i == 10 || i == 11 || i == 14 || i == 15 || i == 18 || i == 27 || i == 34 || i == 36 || i == 42 || i == 43) {
+				printf("\t");
+			}// Shorter state names need an extra tab to look correct
+			// Print Votes
+			printf("%i\t\t\t%i\n", allVotes[i][1], allVotes[i][2]);
+		}
+	}
+	// Show totals
+	for (int i = 0; i <= 49; i++) {
+		trumpTotal += allVotes[i][1];
+		bidenTotal += allVotes[i][2];
+	}
+	printf("\n\n");
+	printf("\t\tTotals\t\t\t\t%i\t\t\t%i\n", trumpTotal, bidenTotal);
+	
+	PAUSE;
+}// Function showing votes
+
+void showTies(int trumpVotes[50][2], int bidenVotes[50][2], char states[50][20]) {
+	int didTheyTie = 0;
+	
+	for (int i = 0; i <= 49; i++) {
+		if (trumpVotes[i][1] == bidenVotes[i][1] && trumpVotes[i][1] + bidenVotes[i][1] != 0 ) {
+			printf("They tied in %s with %i votes\n", states[i], trumpVotes[i][1]);
+			didTheyTie = 1;
+		}
+	}
+	if (didTheyTie == 0) {
+		printf("The candidates did not tie in any state yet\n");
+	}// Print message if no ties exist
+	PAUSE;
+} // Function showing states with ties without the unnessasary extra array storing information I already had
+
+void statePrinter() {
+	// I made this before the 2d array, I am not deleting it after typing it out :}
+	printf("0. Alabama\t\t\t25. Montana\n");
+	printf("1. Alaska\t\t\t26. Nebraska\n");
+	printf("2. Arizona\t\t\t27. Nevada\n");
+	printf("3. Arkansas\t\t\t28. New Hampshire\n");
+	printf("4. California\t\t\t29. New Jersey\n");
+	printf("5. Colorado\t\t\t30. New Mexico\n");
+	printf("6. Connecticut\t\t\t31. New York\n");
+	printf("7. Delaware\t\t\t32. North Carolina\n");
+	printf("8. Florida\t\t\t33. North Dakota\n");
+	printf("9. Georgia\t\t\t34. Ohio\n");
+	printf("10. Hawaii\t\t\t35. Oklahoma\n");
+	printf("11. Idaho\t\t\t36. Oregon\n");
+	printf("12. Illinois\t\t\t37. Pennsylvania\n");
+	printf("13. Indiana\t\t\t38. Rhode Island\n");
+	printf("14. Iowa\t\t\t39. South Carolina\n");
+	printf("15. Kansas\t\t\t40. South Dakota\n");
+	printf("16. Kentucky\t\t\t41. Tennessee\n");
+	printf("17. Louisiana\t\t\t42. Texas\n");
+	printf("18. Maine\t\t\t43. Utah\n");
+	printf("19. Maryland\t\t\t44. Vermont\n");
+	printf("20. Massachusetts\t\t45. Virgina\n");
+	printf("21. Michigan\t\t\t46. Washington\n");
+	printf("22. Minnesota\t\t\t47. West Virginia\n");
+	printf("23. Mississippi\t\t\t48. Wisconsin\n");
+	printf("24. Missouri\t\t\t49. Wyoming\n");
+}
+void highAndLow(int trumpVotes[50][2], int bidenVotes[50][2], char states[50][20]) {
+	// Array keeps track of trump highest votes [0] =state [1] =num of votes
+	int trumpHigh[2];
+	int bidenHigh[2];
+	int trumpLow[2];
+	int bidenLow[2];
+	int isThereOneVoteTrump = 0;
+	int isThereOneVoteBiden = 0;
+
+	for (int i = 0; i <= 49; i++) {
+		if (trumpVotes[i][1] != 0) {
+			isThereOneVoteTrump = 1;
+		}// Check if trump data is something other than 0
+		if (trumpVotes[i][1] > trumpVotes[i - 1][1] && isThereOneVoteTrump == 1) {
+			trumpHigh[0] = i;
+			trumpHigh[1] = trumpVotes[i][1];
+		}// Assign largest Trump votes to trumpHigh
+		if (trumpVotes[i][1] < trumpVotes[i - 1][1] && isThereOneVoteTrump == 1) {
+			trumpLow[0] = i;
+			trumpLow[1] = trumpVotes[i][1];
+		}// Assign Lowest Trump votes to trumpLow
+		if (bidenVotes[i][1] != 0) {
+			isThereOneVoteBiden = 1;
+		}// Check if biden data is something other than 0
+		if (bidenVotes[i][1] > bidenVotes[i - 1][1] && isThereOneVoteBiden == 1) {
+			bidenHigh[0] = i;
+			bidenHigh[1] = bidenVotes[i][1];
+		}// Assign largest Biden votes to bidenHigh
+		if (bidenVotes[i][1] < bidenVotes[i - 1][1] && isThereOneVoteBiden == 1) {
+			bidenLow[0] = i;
+			bidenLow[1] = bidenVotes[i][1];
+		}// Assign lowest Biden votes to bidenLow
+
+	}
+	if (isThereOneVoteTrump == 0) {
+		printf("\n\n");
+		printf("\t\t+--------------------------------------+\n");
+		printf("\t\t|---There are no votes for Trump yet---|\n");
+		printf("\t\t+--------------------------------------+\n");
+	}
+	else {
+		printf("\n\n");
+		printf("\t\t+-------------------------------------------------+\n");
+		printf("\t\tTrumps Highest voting state is %s with %i votes\n", states[trumpHigh[0]], trumpHigh[1]);
+		printf("\t\t|-------------------------------------------------|\n");
+		printf("\t\tTrumps Lowest voting state is %s with %i votes \n", states[trumpLow[0]], trumpLow[1]);
+		printf("\t\t+-------------------------------------------------+\n");
+	}
+	if (isThereOneVoteBiden == 0) {
+		printf("\n\n");
+		printf("\t\t+--------------------------------------+\n");
+		printf("\t\t|---There are no votes for Biden yet---|\n");
+		printf("\t\t+--------------------------------------+\n");
+	}
+	else {
+		printf("\n\n");
+		printf("\t\t+-------------------------------------------------+\n");
+		printf("\t\tBidens Highest voting state is %s with %i votes\n", states[bidenHigh[0]], bidenHigh[1]);
+		printf("\t\t|-------------------------------------------------|\n");
+		printf("\t\tBidens Lowest voting state is %s with %i votes \n", states[bidenLow[0]], bidenLow[1]);
+		printf("\t\t+-------------------------------------------------+\n");
+	}
+	PAUSE;
 }

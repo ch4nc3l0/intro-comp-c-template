@@ -1,34 +1,32 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Chance Gurley Array Design Tool</title>
+    <title>Chance Gurley Exam04 Design Tool</title>
 </head>
 <body>
 
-    <h1 id="chance-gurley-array-design-tool">Chance Gurley Array Design Tool</h1>
+    <h1 id="chance-gurley-exam04-design-tool">Chance Gurley Exam04 Design Tool</h1>
 <p><strong>Flow Chart:</strong>
-<img src="design_tool_pic.png" alt="Design Tool Picture" /></p>
+<img src="design_tool.png.png" alt="Design Tool Picture" /></p>
 <p><strong>Variables:</strong></p>
 <ul>
-<li>userChar</li>
-<li>validChar</li>
-<li>userInt</li>
-<li>avgResult</li>
-<li>sumResult</li>
-<li>result</li>
-<li>arr[1000]</li>
-<li>arrSize</li>
-<li>goAgain</li>
-<li>programRestart</li>
+<li>trumpVotes</li>
+<li>int bidenVotes</li>
+<li>char states</li>
+<li>menu choice</li>
 </ul>
 <p><strong>Functions:</strong></p>
 <ul>
-<li>int addToArr(int arr[], int arrSize)</li>
-<li>int avgArr(int arr[], int arrSize)</li>
-<li>int sumArr(int arr[], int arrSize)</li>
-<li>void showArr(int arr[], int arrSize)</li>
-<li>void printMenu(int i)</li>
-<li>char getValidCharInput()</li>
+<li>void printMenu();</li>
+<li>int stateSelectorMenu(char person[]);</li>
+<li>void votingTool(int cadidateVotes[50][2], char states[50][20], int person);</li>
+<li>void initCandidateArray(int candidateVotes[50][2]);</li>
+<li>int mainMenuChoiceValidator();</li>
+<li>void showVotes(int trumpVotes[50][2], int bidenVotes[50][2], char states[50][20]);</li>
+<li>void showTies(int trumpVotes[50][2], int bidenVotes[50][2], char states[50][20]);</li>
+<li>int stateSelectorValidator();</li>
+<li>void statePrinter();</li>
+<li>void highAndLow(int trumpVotes[50][2], int bidenVotes[50][2], char states[50][20]);</li>
 </ul>
 
 
